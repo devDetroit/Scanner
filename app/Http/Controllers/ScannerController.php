@@ -85,8 +85,15 @@ class ScannerController extends Controller
             }
         }
 
-        $scanner = $scanner->where('active', 1)->with('ultimoregistro', 'facility')->get();
+        $scanner = $scanner->with('ultimoregistro', 'facility')->get();
 
-        return $scanner;
+
+        return [
+            'horaactual' => Carbon::now()->format('Y-m-d H:i:s'), 
+            'scanner' => $scanner,
+            'disponibles' => $scanner->where('status', 0)->count(),
+            'enuso' => $scanner->where('status', 1)->count(), 
+            'inactivos' => $scanner->where('active', 0)->count(), 
+        ];
     }
 }

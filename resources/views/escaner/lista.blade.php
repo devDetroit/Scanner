@@ -11,9 +11,36 @@
     <div class="row">
         <div class="d-flex justify-content-center">
             <div class="col-md-10">
+                <div class="card shadow mb-2 bg-body rounded">
+                    <div class="card-body">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="fw-bold">Disponibles</th>
+                                    <th class="fw-bold">En Uso</th>
+                                    <th class="fw-bold">Inactivos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">@{{ disponible }}</td>
+                                    <td class="fw-bold">@{{ enuso }}</td>
+                                    <td class="fw-bold">@{{ inactive }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="col-md-10">
                 <div class="card shadow p-3 mb-5 bg-body rounded">
-                    <div class="card-header text-center">
-                        <h3>Device Control</h3>
+                    <div class="card-header">
+                        <h3 class="text-center">Device Control</h3>
+                        <h6 class="text-end">Last Update: @{{ horaactual }}</h6>
                     </div>
                     <div class="card-body">
                         <table class="table table-hover">
@@ -21,6 +48,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Device Name</th>
+                                    <th>Status</th>
                                     <th>
                                         <select name="Pais" class="form-control" v-on:change="getScanners" v-model="searchFacility">
                                             <option value="">All</option>
@@ -29,7 +57,7 @@
                                             </option>
                                         </select>
                                     </th>
-                                    <th>Estatus</th>
+                                    <th>State</th>
                                     <th>Current User</th>
                                     <th>Last Time Picked</th>
                                     <th>Last Time Returned</th>
@@ -40,6 +68,8 @@
                                     <tr v-for="scanner in scanners">
                                         <td>@{{ scanner.id }}</td>
                                         <td>@{{ scanner.description  }}</td>
+                                        <td :class="scanner.active ? 'bg-success fw-bold' : 'bg-danger fw-bold'" v-if="scanner.active == 0">Inactive</td>
+                                        <td :class="scanner.active ? 'bg-success fw-bold' : 'bg-danger fw-bold'" v-else>Active</td>
                                         <td>@{{ scanner.facility.name  }}</td>
                                         <td :class="scanner.status ? 'bg-danger fw-bold' : 'bg-success fw-bold'" v-if="scanner.status == 0">Avaiable</td>
                                         <td :class="scanner.status ? 'bg-danger fw-bold' : 'bg-success fw-bold'" v-else>In use</td>
@@ -62,6 +92,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 @endsection

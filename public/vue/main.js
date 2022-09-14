@@ -56,6 +56,30 @@ new Vue({
             var url = "/scanner/verificar/empleado";
             var data = this.busqueda;
 
+            if (!this.busqueda.empleado) {
+                let timerInterval
+                Swal.fire({
+                    title: 'Empleado es necesario',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                })
+                return
+            }
             axios
                 .post(url, data)
                 .then((response) => {
@@ -80,6 +104,8 @@ new Vue({
                     toastr.warning("Error", "Ha ocurrido un error ");
                     console.log(error);
                 });
+
+
         },
     }
 });

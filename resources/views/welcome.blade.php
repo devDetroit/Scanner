@@ -17,12 +17,13 @@
                             <form method="POST" v-on:submit.prevent="GuardarEmpleado()">
                                 @csrf
                                 <div class="mb-3">
+                                    <i class="fa-solid fa-user fa-2xl"></i>&nbsp; &nbsp; &nbsp;
                                     <label for="exampleInputEmail1" class="form-label">
                                         <h1> <b>Empleado</b> </h1>
-                                    </label>&nbsp; &nbsp; &nbsp;
-                                    <i class="fa-solid fa-user fa-2xl"></i>
+                                    </label>
+
                                     <div class="input-group mb-3">
-                                        <input type="text" style="border-width: 3px;" class="form-control form-control-lg" :disabled="empleadoCheck" required ref="search" v-model="busqueda.empleado"  aria-label="Username" aria-describedby="basic-addon1">
+                                        <input type="text" style="border-width: 3px;" class="form-control form-control-lg" :disabled="empleadoCheck" required ref="search" v-model="busqueda.empleado" aria-label="Username" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                                 <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
@@ -30,15 +31,16 @@
                             <br><br>
                             <form method="POST" v-on:submit.prevent="GuardarScanner()">
                                 <div class="mb-3">
+                                    <i class="fa-solid fa-barcode fa-2xl"></i>
+                                    &nbsp; &nbsp; &nbsp;
                                     <label for="exampleInputPassword1" class="form-label">
                                         <h1><b>Escaner</b></h1>
-                                    </label>&nbsp; &nbsp; &nbsp;
-                                    <i class="fa-solid fa-barcode fa-2xl"></i>
+                                    </label>
+
                                     <input type="text" style="border-width: 3px;" ref="scanner" class="form-control form-control-lg" required ref="scanner" v-model="busqueda.scanner">
                                 </div>
                                 <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                             </form>
-
                         </div>
                     </div>
                 </div>
