@@ -11,6 +11,89 @@ use Illuminate\Http\Request;
 
 class ScannerController extends Controller
 {
+
+
+    public function index()
+    {
+        return view('escaner.index');
+    }
+
+
+    public function obtener()
+    {
+        return Facility::where('status', 1)->get();
+    }
+
+    public function Historial()
+    {
+        return MovementLog::orderBy('created_at', 'desc')->with('scanner')->get()->take(10);
+    }
+
+    public function show(Scanner $scanner)
+    {
+        $scanner = Scanner::with('facility');
+        if (auth()->user()->admin == 0) {
+            $facilites = FacilityUser::where('users_id', auth()->user()->id)->get();
+            $scanner =  $scanner->whereIn('facility_id', $facilites->pluck('facilities_id'));
+        }
+
+        $scanner = $scanner->paginate(10);
+        return [
+            'pagination' => [
+                'total'        => $scanner->total(),
+                'current_page' => $scanner->currentPage(),
+                'per_page'     => $scanner->perPage(),
+                'last_page'    => $scanner->lastPage(),
+                'from'         => $scanner->firstItem(),
+                'to'           => $scanner->lastItem(),
+            ],
+            'scanner' => $scanner
+        ];
+    }
+
+    public function store(Request $request)
+    {
+        $scanner = $request['scanner'];
+
+        $exists = Scanner::where('description', $scanner['description'])->exists();
+
+        if ($exists == 1) {
+            return 1;
+        }
+
+        $nuevas = Scanner::create($scanner);
+        return $nuevas;
+    }
+
+    public function update(Request $request)
+    {
+
+        $escaner = $request['scanner'];
+
+        $exists = Scanner::whereNotIn('id', [$escaner['id']])->where('description', $escaner['description'])->exists();
+
+        if ($exists == 1) {
+            return 1;
+        }
+
+        $scanner = Scanner::find($escaner['id']);
+        $scanner->description = $escaner['description'];
+        $scanner->status = $escaner['status'];
+        $scanner->facility_id  = $escaner['facility_id'];
+        $scanner->active  = $escaner['active'];
+        $scanner->save();
+        return $scanner;
+    }
+
+    public function delete(Request $request)
+    {
+        $scanner = $request['scanner'];
+        return $nuevas = Scanner::where('id', $scanner['id'])->delete();
+    }
+
+
+
+
     public function Checar(Request $request)
     {
         $datos = $request;
@@ -41,10 +124,11 @@ class ScannerController extends Controller
                 $scanner->save();
                 $tipo  = 2;
             }
+
             return [
                 'scanner' => $scanner,
                 'movimiento' => $movimiento,
-                'tipo' => $tipo
+                'tipo' => $tipo,
             ];
         }
     }
@@ -72,6 +156,7 @@ class ScannerController extends Controller
     {
         $scanner = new Scanner;
 
+
         if (auth()->user()->admin == 0) {
             $facilites = FacilityUser::where('users_id', auth()->user()->id)->get();
             if ($request->facility == '') {
@@ -89,11 +174,11 @@ class ScannerController extends Controller
 
 
         return [
-            'horaactual' => Carbon::now()->format('Y-m-d H:i:s'), 
+            'horaactual' => Carbon::now()->format('Y-m-d H:i:s'),
             'scanner' => $scanner,
             'disponibles' => $scanner->where('status', 0)->count(),
-            'enuso' => $scanner->where('status', 1)->count(), 
-            'inactivos' => $scanner->where('active', 0)->count(), 
+            'enuso' => $scanner->where('status', 1)->count(),
+            'inactivos' => $scanner->where('active', 0)->count(),
         ];
     }
 }

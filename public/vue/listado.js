@@ -5,13 +5,14 @@ new Vue({
         this.getFacilities();
     },
     data: {
-        horaactual: null, 
+        horaactual: null,
         scanners: [],
         facilitiesporpermiso: [],
         searchFacility: "",
         disponible: null,
-        enuso: null, 
-        inactive: null
+        enuso: null,
+        inactive: null,
+        historial: []
     },
     computed: {
 
@@ -19,7 +20,7 @@ new Vue({
     mounted: function () {
         this.timer = setInterval(() => {
             this.getScanners()
-        }, 15000)
+        }, 30000)
     },
     methods: {
 
@@ -49,7 +50,6 @@ new Vue({
                     this.enuso = response.data.enuso;
                     this.inactive = response.data.inactivos;
                     this.horaactual = response.data.horaactual;
-                    
                 })
                 .catch(function (error) {
                     toastr.warning("Error", "Ha ocurrido un error ");

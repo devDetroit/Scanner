@@ -24,6 +24,16 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('listado', [ScannerController::class, 'listadoIndex']);
+
+
+    // scanner
+    Route::prefix('scanner')->group(function () {
+        Route::get('/', [ScannerController::class, 'index'])->name('scanner.index');
+        Route::get('/todo', [ScannerController::class, 'show']);
+        Route::post('/agregar', [ScannerController::class, 'store']);
+        Route::post('/actualizar', [ScannerController::class, 'update']);
+        Route::post('/eliminar', [ScannerController::class, 'delete']);
+    });
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -31,6 +41,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Escaner
 
 Route::prefix('facilities')->group(function () {
+    Route::get('obtener', [ScannerController::class, 'obtener']);
     Route::get('obtener/permiso', [ScannerController::class, 'FacilityPorPermiso']);
 });
 
@@ -40,4 +51,5 @@ Route::prefix('facilities')->group(function () {
 Route::prefix('scanner')->group(function () {
     Route::get('obtener', [ScannerController::class, 'ObtenerScanners']);
     Route::post('verificar/empleado', [ScannerController::class, 'Checar']);
+    Route::get('historial', [ScannerController::class, 'Historial']);
 });

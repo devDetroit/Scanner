@@ -2,13 +2,14 @@ new Vue({
     el: "#main",
     created: function () {
         this.$nextTick(() => this.$refs.search.focus());
+        this.getHistorial();
     },
     data: {
         busqueda: {
             empleado: null,
             scanner: null
-        }
-        ,
+        },
+        historial: [],
         empleadoCheck: false
     },
     computed: {
@@ -52,6 +53,17 @@ new Vue({
                 }
             })
         },
+        getHistorial: function () {
+            var url = "/scanner/historial";
+            axios.get(url)
+                .then((response) => {
+                    this.historial = response.data;
+                })
+                .catch(function (error) {
+                    toastr.warning("Error", "Ha ocurrido un error ");
+                    console.log(error);
+                });
+        },
         GuardarScanner: function () {
             var url = "/scanner/verificar/empleado";
             var data = this.busqueda;
@@ -83,7 +95,6 @@ new Vue({
             axios
                 .post(url, data)
                 .then((response) => {
-
                     if (response.data == 0) {
                         this.LlamarModal('error', 'Escaner no existe');
                     } else if (response.data.tipo == 1) {
@@ -98,6 +109,7 @@ new Vue({
                         this.LlamarModal('error', 'La persona que pide el scanner debe ser la misma que la que entrega')
                     }
                     this.resetData();
+                    this.getHistorial();
 
                 })
                 .catch(function (error) {
