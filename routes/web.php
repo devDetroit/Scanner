@@ -23,7 +23,7 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('listado', [ScannerController::class, 'listadoIndex']);
+    Route::get('listado', [ScannerController::class, 'listadoIndex'])->name('listado');
 
 
     // scanner
