@@ -84,7 +84,7 @@
                                     </template>
                                     <template v-else>
                                         <td colspan="6">
-                                            <p class="text-center">No existen registros</p>
+                                            <p class="text-center">No records to show</p>
                                         </td>
                                     </template>
                                 </tbody>

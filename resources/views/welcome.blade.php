@@ -19,7 +19,7 @@
                                 <div class="mb-3">
                                     <i class="fa-solid fa-user fa-2xl"></i>&nbsp; &nbsp; &nbsp;
                                     <label for="exampleInputEmail1" class="form-label">
-                                        <h1> <b>Empleado</b> </h1>
+                                        <h1> <b>EMPLOYEE</b> </h1>
                                     </label>
 
                                     <div class="input-group mb-3">
@@ -34,10 +34,10 @@
                                     <i class="fa-solid fa-barcode fa-2xl"></i>
                                     &nbsp; &nbsp; &nbsp;
                                     <label for="exampleInputPassword1" class="form-label">
-                                        <h1><b>Escaner</b></h1>
+                                        <h1><b>SCANNER</b></h1>
                                     </label>
 
-                                    <input type="text" style="border-width: 3px;" ref="scanner" class="form-control form-control-lg" required ref="scanner" v-model="busqueda.scanner">
+                                    <input type="text" style="border-width: 3px;"   class="form-control form-control-lg" required ref="scanner" v-model="busqueda.scanner">
                                 </div>
                                 <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                             </form>
