@@ -117,7 +117,7 @@ new Vue({
                         this.LlamarModal('error', 'La persona que pide el scanner debe ser la misma que la que entrega')
                     }
                     this.resetData();
-                    this.getHistorial();
+                    /* this.getHistorial(); */
                 })
                 .catch(function (error) {
                     /*   toastr.warning("Error", "Ha ocurrido un error "); */
