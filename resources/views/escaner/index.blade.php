@@ -59,12 +59,11 @@
                         </div>
                     </div>
                 </div>
-                <!--   <div class="row">
+                  <div class="row">
                     <div class="col-sm-12 col-md-5">
                         <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                            {!! trans('concepto.most') !!} @{{ pagination.from }} {!! trans('concepto.al') !!}
-                            @{{ pagination.to }} {!! trans('concepto.de') !!} @{{ pagination.total }} {!!
-                            trans('concepto.elementos') !!}
+                            Showing @{{ pagination.from }} to
+                            @{{ pagination.to }} from @{{ pagination.total }} elements
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-7">
@@ -72,7 +71,7 @@
                             <ul class="pagination">
                                 <li v-if="pagination.current_page > 1" class="paginate_button page-item previous" id="example2_previous">
                                     <a href="#" @click.prevent="changePage(pagination.current_page - 1)" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">
-                                        {!! trans('concepto.ant') !!}
+                                        Previous
                                     </a>
                                 </li>
                                 <li v-for="page in pagesNumber" v-bind:class="[ page == isActived ? 'active' : '']" class="paginate_button page-item">
@@ -82,13 +81,13 @@
                                 </li>
                                 <li v-if="pagination.current_page < pagination.last_page" class="paginate_button page-item next" id="example2_next">
                                     <a href="#" @click.prevent="changePage(pagination.current_page + 1)" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">
-                                        {!! trans('concepto.sig') !!}
+                                       Next
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- /.row -->
             </div>
             <!-- /.card-body -->

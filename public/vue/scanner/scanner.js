@@ -124,7 +124,7 @@ new Vue({
 
         changePage: function (page) {
             this.pagination.current_page = page;
-            this.getConceptos(page);
+            this.getScanners(page);
 
         },
         editScanner: function (scanner) {

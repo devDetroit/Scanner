@@ -1,6 +1,7 @@
 new Vue({
     el: "#main",
     created: function () {
+        console.log(1);
         this.$nextTick(() => this.$refs.search.focus());
         this.getHistorial();
     },
@@ -25,16 +26,18 @@ new Vue({
 
         GuardarEmpleado: function () {
             this.empleadoCheck = true;
-            this.$nextTick(() => this.$refs.scanner.focus());
+             this.$nextTick(() => this.$refs.scanner.focus());
+            console.log(2);
         },
 
         LlamarModal(estatus, mensaje) {
+            console.log(3);
             let timerInterval
             Swal.fire({
                 icon: estatus,
                 title: mensaje,
                 html: 'Este modal se cerrara en <b></b> milliseconds.',
-                timer: 3000,
+                timer: 2000,
                 timerProgressBar: true,
                 didOpen: () => {
                     Swal.showLoading()
@@ -42,14 +45,17 @@ new Vue({
                     timerInterval = setInterval(() => {
                         b.textContent = Swal.getTimerLeft()
                     }, 100)
+
                 },
                 willClose: () => {
                     clearInterval(timerInterval)
                 }
             }).then((result) => {
                 /* Read more about handling dismissals below */
+
                 if (result.dismiss === Swal.DismissReason.timer) {
                     console.log('I was closed by the timer')
+                    location.reload();
                 }
             })
         },
@@ -60,11 +66,12 @@ new Vue({
                     this.historial = response.data;
                 })
                 .catch(function (error) {
-                    toastr.warning("Error", "Ha ocurrido un error ");
+                    /*   toastr.warning("Error", "Ha ocurrido un error "); */
                     console.log(error);
                 });
         },
         GuardarScanner: function () {
+            console.log(4);
             var url = "/scanner/verificar/empleado";
             var data = this.busqueda;
 
@@ -88,6 +95,7 @@ new Vue({
                     /* Read more about handling dismissals below */
                     if (result.dismiss === Swal.DismissReason.timer) {
                         console.log('I was closed by the timer')
+
                     }
                 })
                 return
@@ -110,10 +118,9 @@ new Vue({
                     }
                     this.resetData();
                     this.getHistorial();
-
                 })
                 .catch(function (error) {
-                    toastr.warning("Error", "Ha ocurrido un error ");
+                    /*   toastr.warning("Error", "Ha ocurrido un error "); */
                     console.log(error);
                 });
 
