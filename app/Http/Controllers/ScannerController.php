@@ -6,6 +6,7 @@ use App\Models\Facility;
 use App\Models\FacilityUser;
 use App\Models\MovementLog;
 use App\Models\Scanner;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,19 @@ class ScannerController extends Controller
 
     public function Historial()
     {
-        return MovementLog::orderBy('created_at', 'desc')->with('scanner')->get()->take(10);
+
+        $tmpArr = explode(".", request()->getClientIp());
+        array_pop($tmpArr);
+        $tmpArr = implode(".", $tmpArr);
+        $user = User::where('username', $tmpArr)->first();
+        $facilites = FacilityUser::where('users_id', $user->id)->get();
+        $scanner = Scanner::whereIn('facility_id', $facilites->pluck('facilities_id'))->get();
+
+        return MovementLog::whereIn('scanners_id', $scanner->pluck('id'))
+            ->orderBy('created_at', 'desc')
+            ->with('scanner')
+            ->get()
+            ->take(10);
     }
 
     public function show(Scanner $scanner)
@@ -62,6 +75,8 @@ class ScannerController extends Controller
         }
 
         $nuevas = Scanner::create($scanner);
+        $nuevas->created_by = auth()->user()->id;
+        $nuevas->save();
         return $nuevas;
     }
 
@@ -81,6 +96,7 @@ class ScannerController extends Controller
         $scanner->status = $escaner['status'];
         $scanner->facility_id  = $escaner['facility_id'];
         $scanner->active  = $escaner['active'];
+        $scanner->updated_by  = auth()->user()->id;
         $scanner->save();
         return $scanner;
     }
@@ -88,7 +104,10 @@ class ScannerController extends Controller
     public function delete(Request $request)
     {
         $scanner = $request['scanner'];
-        return $nuevas = Scanner::where('id', $scanner['id'])->delete();
+        $nuevas = Scanner::where('id', $scanner['id'])->delete();
+        $nuevas->deleted_by = auth()->user()->id;
+        $nuevas->save();
+        return $nuevas;
     }
 
 

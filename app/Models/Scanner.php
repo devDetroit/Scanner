@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Scanner extends Model
 {
 
-
+    use SoftDeletes;
     const DISPONIBLE = 0;
     const ENUSO = 1;
 
@@ -44,7 +45,8 @@ class Scanner extends Model
         return $this->hasOne(MovementLog::class, 'scanners_id', 'id')->orderBy('created_at', 'desc');
     }
 
-    public function facility(){
+    public function facility()
+    {
         return $this->hasOne(Facility::class, 'id', 'facility_id');
     }
 }

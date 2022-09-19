@@ -9,6 +9,7 @@ class FacilityUser extends Model
 {
     protected $table = 'facility_users';
     protected $primaryKey = 'id';
+    public $timestamps = false;
 
 
     protected $casts = [
