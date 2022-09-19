@@ -33,6 +33,15 @@ class ScannerController extends Controller
     {
         $log = new MovementLog;
 
+        if (auth()->user()->admin == 0) {
+
+            $log = $log->whereHas('scanner.facility', function ($query) {
+                $facilites = FacilityUser::where('users_id', auth()->user()->id)->get();
+                $query->whereIn('facility_id', $facilites->pluck('facilities_id'));
+            });
+        }
+
+
         if ($request->scanner != '') {
             $log = $log->whereHas('scanner', function ($query) use ($request) {
                 $query->where('description', 'LIKE', '%' . $request->scanner . '%');
