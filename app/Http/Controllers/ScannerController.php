@@ -41,7 +41,6 @@ class ScannerController extends Controller
             });
         }
 
-
         if ($request->scanner != '') {
             $log = $log->whereHas('scanner', function ($query) use ($request) {
                 $query->where('description', 'LIKE', '%' . $request->scanner . '%');
@@ -68,14 +67,10 @@ class ScannerController extends Controller
                 ->where('end', '<=', $end->format('Y-m-d 23:59:59'));
         }
 
-
-
-
         if ($request->user != '') {
 
             $log = $log->where('user', 'LIKE', '%' . $request->user . '%');
         }
-
 
         $log = $log->with('scanner.facility')->paginate(10);
 
@@ -133,18 +128,16 @@ class ScannerController extends Controller
 
     public function store(Request $request)
     {
-        $scanner = $request['scanner'];
 
-        $exists = Scanner::where('description', $scanner['description'])->exists();
+        $exists = Scanner::where('description', $request['scanner']['description'])->exists();
 
         if ($exists == 1) {
             return 1;
         }
-
-        $nuevas = Scanner::create($scanner);
-        $nuevas->created_by = auth()->user()->id;
-        $nuevas->save();
-        return $nuevas;
+      
+        return  Scanner::create(array_merge($request['scanner'],[
+            "created_by" => auth()->user()->id
+        ]));
     }
 
     public function update(Request $request)
@@ -176,9 +169,6 @@ class ScannerController extends Controller
         $nuevas->save();
         return $nuevas;
     }
-
-
-
 
     public function Checar(Request $request)
     {
