@@ -19,10 +19,68 @@ class ScannerController extends Controller
         return view('escaner.index');
     }
 
+    public function indexLog()
+    {
+        return view('escaner.log');
+    }
 
     public function obtener()
     {
         return Facility::where('status', 1)->get();
+    }
+
+    public function obtenerLog(Request $request)
+    {
+        $log = new MovementLog;
+
+        if ($request->scanner != '') {
+            $log = $log->whereHas('scanner', function ($query) use ($request) {
+                $query->where('description', 'LIKE', '%' . $request->scanner . '%');
+            });
+        }
+
+        if ($request->facility != '') {
+            $log = $log->whereHas('scanner.facility', function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->facility . '%');
+            });
+        }
+
+        if ($request->start != '') {
+
+            $start = new Carbon($request->start);
+            $log = $log->where('start', '>=', $start->format('Y-m-d 00:00:00'))
+                ->where('end', '<=', $start->format('Y-m-d 23:59:59'));
+        }
+
+        if ($request->end != '') {
+
+            $end = new Carbon($request->end);
+            $log = $log->where('end', '>=', $end->format('Y-m-d 00:00:00'))
+                ->where('end', '<=', $end->format('Y-m-d 23:59:59'));
+        }
+
+
+
+
+        if ($request->user != '') {
+
+            $log = $log->where('user', 'LIKE', '%' . $request->user . '%');
+        }
+
+
+        $log = $log->with('scanner.facility')->paginate(10);
+
+        return [
+            'pagination' => [
+                'total'        => $log->total(),
+                'current_page' => $log->currentPage(),
+                'per_page'     => $log->perPage(),
+                'last_page'    => $log->lastPage(),
+                'from'         => $log->firstItem(),
+                'to'           => $log->lastItem(),
+            ],
+            'log' => $log
+        ];
     }
 
     public function Historial()

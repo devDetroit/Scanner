@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/agregar', [ScannerController::class, 'store']);
         Route::post('/actualizar', [ScannerController::class, 'update']);
         Route::post('/eliminar', [ScannerController::class, 'delete']);
+        Route::get('/todo', [ScannerController::class, 'show']);
+        Route::get('/log', [ScannerController::class, 'indexLog'])->name('log');
+        Route::get('/log/obtener', [ScannerController::class, 'obtenerLog']);
     });
 });
 
