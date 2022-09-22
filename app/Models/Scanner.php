@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +17,7 @@ class Scanner extends Model
     use HasFactory;
     protected $table = 'scanners';
     protected $primaryKey = 'id';
+    protected $appends = array('Tiempo');
     protected $dates = [
         'deleted_at',
         'updated_at',
@@ -43,6 +45,19 @@ class Scanner extends Model
     public function ultimoregistro()
     {
         return $this->hasOne(MovementLog::class, 'scanners_id', 'id')->orderBy('created_at', 'desc');
+    }
+
+    public function getTiempoAttribute()
+    {
+
+        if ($this->ultimoregistro['end'] == null) {
+            $fechainicial = new Carbon($this->ultimoregistro['start']);
+
+            $time = Carbon::now()->diffInMinutes($fechainicial);
+            return number_format($time / 60, 2);
+        } else {
+            return 0;
+        }
     }
 
     public function facility()

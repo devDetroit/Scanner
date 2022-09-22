@@ -62,11 +62,12 @@
                                         <th>Current User</th>
                                         <th>Last Time Picked</th>
                                         <th>Last Time Returned</th>
+                                        <th>Taken</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <template v-if="scanners.length > 0">
-                                        <tr v-for="scanner in scanners">
+                                        <tr :class="scanner.Tiempo > 8 ? 'table-warning' : ''" v-for="scanner in scanners">
                                             <td>@{{ scanner.id }}</td>
                                             <td>@{{ scanner.description  }}</td>
                                             <td :class="scanner.active ? 'bg-success fw-bold' : 'bg-danger fw-bold'" v-if="scanner.active == 0">Inactive</td>
@@ -79,6 +80,8 @@
                                             <td v-if="scanner.ultimoregistro">@{{ scanner.ultimoregistro.start }}</td>
                                             <td v-else></td>
                                             <td v-if="scanner.ultimoregistro">@{{ scanner.ultimoregistro.end }}</td>
+                                            <td v-else></td>
+                                            <td v-if="scanner.Tiempo > 0">@{{ scanner.Tiempo }} hrs ago</td>
                                             <td v-else></td>
                                         </tr>
                                     </template>
