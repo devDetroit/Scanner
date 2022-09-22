@@ -72,7 +72,7 @@ class ScannerController extends Controller
             $log = $log->where('user', 'LIKE', '%' . $request->user . '%');
         }
 
-        $log = $log->with('scanner.facility')->paginate(10);
+        $log = $log->with('scanner.facility')->paginate(50);
 
         return [
             'pagination' => [
@@ -134,8 +134,8 @@ class ScannerController extends Controller
         if ($exists == 1) {
             return 1;
         }
-      
-        return  Scanner::create(array_merge($request['scanner'],[
+
+        return  Scanner::create(array_merge($request['scanner'], [
             "created_by" => auth()->user()->id
         ]));
     }
@@ -246,7 +246,7 @@ class ScannerController extends Controller
             }
         }
 
-        $scanner = $scanner->with('ultimoregistro', 'facility')->get();
+        $scanner = $scanner->with('ultimoregistro', 'facility')->orderBy('facility_id')->get();
 
 
         return [
