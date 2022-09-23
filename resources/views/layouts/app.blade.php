@@ -20,7 +20,8 @@
     <script src="https://kit.fontawesome.com/f6adcfc5cf.js" crossorigin="anonymous"></script>
     <!-- Fonts -->
     <script src="/js/toastr.min.js"></script>
-    <link rel="stylesheet" href="/css/toastr.css"></link>
+    <link rel="stylesheet" href="/css/toastr.css">
+    </link>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
