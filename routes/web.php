@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ScannerController;
+use App\Mail\DeliveryMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +42,26 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+Route::get('test', function () {
+
+    $user = [
+        'id' => 1,
+        'name' => 'cesarin'
+    ];
+
+    /*  foreach($users as $key => $user)
+
+    {
+
+        $email = $user->email; */
+
+
+    Mail::to('cperez@detroitaxle.com')->send(new DeliveryMail($user));
+    dd("success");
+
+    dd("success");
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Escaner
@@ -48,6 +71,12 @@ Route::prefix('facilities')->group(function () {
     Route::get('obtener/permiso', [ScannerController::class, 'FacilityPorPermiso']);
 });
 
+
+
+Route::prefix('delivery')->group(function () {
+    Route::get('formulario', [DeliveryController::class, 'index'])->name('delivery.index');
+    Route::post('guardar', [DeliveryController::class, 'store']);
+});
 
 
 
