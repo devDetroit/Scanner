@@ -76,6 +76,9 @@ Route::prefix('facilities')->group(function () {
 Route::prefix('delivery')->group(function () {
     Route::get('formulario', [DeliveryController::class, 'index'])->name('delivery.index');
     Route::post('guardar', [DeliveryController::class, 'store']);
+    Route::prefix('reporte')->group(function () {
+        Route::get('formulario', [DeliveryController::class, 'index'])->name('delivery.index');
+    });
 });
 
 

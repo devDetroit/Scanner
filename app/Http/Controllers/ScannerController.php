@@ -191,9 +191,15 @@ class ScannerController extends Controller
                 $tipo  = 1;
             } else {
 
-                if ($movimiento->user !=  $datos->empleado) {
-                    return 2;
+
+                $admin = User::where('name', $datos->empleado)->first();
+
+                if (!$admin) {
+                    if ($movimiento->user !=  $datos->empleado) {
+                        return 2;
+                    }
                 }
+
                 $movimiento->end = Carbon::now();
                 $movimiento->save();
                 $scanner->status = Scanner::DISPONIBLE;

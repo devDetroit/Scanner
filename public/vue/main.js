@@ -55,7 +55,7 @@ new Vue({
 
                 if (result.dismiss === Swal.DismissReason.timer) {
                     console.log('I was closed by the timer')
-                    location.reload();
+                  /*   location.reload(); */
                 }
             })
         },
