@@ -18,17 +18,23 @@ class DeliveryController extends Controller
      */
     public function index()
     {
+
         return view('delivery.index');
     }
 
     public function indexReporte()
     {
+
+
         return view('delivery.report');
     }
 
     public function latest()
     {
-        return Delivery::orderBy('created_at', 'desc')->get()->take(10);
+        return [
+            'delivery' => Delivery::orderBy('created_at', 'desc')->get()->take(10),
+            'user' => auth()->user()->email ?? null
+        ];
     }
 
     /**
@@ -85,7 +91,7 @@ class DeliveryController extends Controller
 
         $movimiento = $this->obtenerDatos($request);
 
-        return $movimiento;
+        return  $movimiento;
     }
 
 
@@ -111,10 +117,10 @@ class DeliveryController extends Controller
             'mail' => 'required|email',
             'shop_name' => 'required|string',
             'shop_address' => 'required|string',
-            'driver_assigned' => 'required|string',
-            'part_number' => 'required|string',
+            'driver_assigned' => 'nullable|string',
+            'part_number' => 'string',
             'payment_method' => 'required|integer',
-            'returned' => 'required|integer',
+            'returned' => 'integer',
             'parts_returned' => 'nullable',
             'total' => 'required',
         ]);

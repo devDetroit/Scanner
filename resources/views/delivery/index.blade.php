@@ -6,24 +6,25 @@
         <div class="col-md-4">
             <div class="card shadow p-1 bg-body rounded">
                 <div class="card-body">
+
                     <h5 class="card-title text-center">Submit Cupon</h5>
                     <form method="POST" v-on:submit.prevent="Guardar()">
                         @csrf
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                E-Mail
+                                E-Mail <span class="text-danger"> * </span>
                             </label>
                             <input type="mail" class="form-control" required v-model="delivery.mail" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                Shop Name
+                                Shop Name <span class="text-danger"> * </span>
                             </label>
                             <input type="text" class="form-control" required v-model="delivery.shop_name" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                Shop Address
+                                Shop Address <span class="text-danger"> * </span>
                             </label>
 
                             <input type="text" class="form-control" required v-model="delivery.shop_address" aria-label="Username" aria-describedby="basic-addon1">
@@ -33,18 +34,18 @@
                             <label for="exampleInputEmail1" class="form-label">
                                 Driver Assigned
                             </label>
-                            <input type="text" class="form-control" required v-model="delivery.driver_assigned" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" v-model="delivery.driver_assigned" aria-label="Username" aria-describedby="basic-addon1">
 
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                Part Number
+                                Part Number Delivered <span class="text-danger"> * </span>
                             </label>
                             <input type="text" class="form-control" required v-model="delivery.part_number" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                Payment Method
+                                Payment Method <span class="text-danger"> * </span>
                             </label>
 
                             <div class="form-check">
@@ -74,7 +75,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                Returned
+                                Return
                             </label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault2" value="0" v-model="delivery.returned" v-model="picked" id="return">
@@ -93,11 +94,12 @@
                             <label for="exampleInputEmail1" class="form-label">
                                 Parts Returned
                             </label>
-                            <input type="number" class="form-control" required v-model="delivery.parts_returned" aria-label="Username" aria-describedby="basic-addon1">
+                            <textarea class="form-control" required v-model="delivery.parts_returned" aria-label="Username" aria-describedby="basic-addon1">
+                            </textarea>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
-                                Total
+                                Total Paid <span class="text-danger"> * </span>
                             </label>
                             <input type="number" class="form-control" required v-model="delivery.total" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
@@ -107,6 +109,7 @@
                         </div>
                     </form>
                 </div>
+                <p class="text-danger"><small> * Required Fields</small></p>
             </div>
         </div>
         <div class="col-md-6">

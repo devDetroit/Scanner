@@ -11,12 +11,12 @@ new Vue({
         scanners: [],
         facilities: [],
         delivery: {
-            mail: 'asasas',
-            shop_name: 'asas',
-            shop_address: 'asas',
-            driver_assigned: 'asas',
-            part_number: '121212',
-            payment_method: 2,
+            mail: '',
+            shop_name: '',
+            shop_address: '',
+            driver_assigned: '',
+            part_number: '',
+            payment_method: 1,
             returned: 0,
             parts_returned: null,
             total: 14
@@ -69,11 +69,12 @@ new Vue({
             this.scanner.active = null;
             this.scanner.facility_id = null;
         },
-        getLatestRecords: function (page) {
+        getLatestRecords: function () {
 
             var url = "/delivery/latest";
             axios.get(url).then(response => {
-                this.latest = response.data;
+                this.latest = response.data.delivery;
+                this.delivery.mail = response.data.user;
 
             }).catch(function (error) {
                 toastr.warning("Error", "Ha ocurrido un error ");

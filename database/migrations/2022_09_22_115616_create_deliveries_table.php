@@ -18,11 +18,11 @@ class CreateDeliveriesTable extends Migration
             $table->string('mail');
             $table->string('shop_name');
             $table->string('shop_address');
-            $table->string('driver_assigned');
+            $table->string('driver_assigned')->nullable();
             $table->string('part_number');
             $table->tinyInteger('payment_method');
-            $table->tinyInteger('returned');
-            $table->integer('parts_returned')->nullable();
+            $table->tinyInteger('returned')->nullable();
+            $table->string('parts_returned')->nullable();
             $table->float('total');
             $table->integer('updated_by')->nullable();
             $table->integer('created_by')->nullable();
