@@ -76,62 +76,9 @@ new Vue({
             }
         },
 
-        getSucursales: function () {
-            var url = "/general/empleado/sucursales";
-            axios
-                .get(url)
-                .then((response) => {
-                    this.sucursales = response.data;
-                })
-                .catch(function (error) {
-                    toastr.warning("Error", "Ha ocurrido un error ");
-                    console.log(error);
-                });
-        },
-        getZonas: function () {
-            var url = "/general/empleado/zonas";
-            axios
-                .get(url)
-                .then((response) => {
-                    this.zonas = response.data;
-                })
-                .catch(function (error) {
-                    toastr.warning("Error", "Ha ocurrido un error ");
-                    console.log(error);
-                });
-        },
-        Branch: function ({ cSucursalFolio, cSucursalIdentificador }) {
-            return `[${cSucursalFolio}] - ${cSucursalIdentificador}`;
-        },
-
-        generarPDF: function () {
-            this.cargapdf = true;
-            var url = "/reportes/productos/generar/pdf";
-            var data = {
-                busqueda: this.busqueda,
-            };
-            axios({
-                method: "post",
-                url: url,
-                responseType: "blob",
-                data: data,
-            }).then((response) => {
-                this.cargapdf = false;
-                let blob = new Blob([response.data], {
-                    type: "application/pdf",
-                });
-                let link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "ReporteProducto.pdf";
-                link.click();
-            });
-
-
-        },
-
         generarExcel: function () {
             this.cargaexcel = true;
-            var url = "/reportes/productos/generar/excel";
+            var url = "/delivery/reporte/generar/excel";
             var data = {
                 busqueda: this.busqueda,
             };

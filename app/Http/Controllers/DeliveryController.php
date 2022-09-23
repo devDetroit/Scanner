@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DeliveryExport;
 use App\Models\Delivery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DeliveryController extends Controller
 {
@@ -24,15 +26,20 @@ class DeliveryController extends Controller
         return view('delivery.report');
     }
 
+    public function latest()
+    {
+        return Delivery::orderBy('created_at', 'desc')->get()->take(10);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function generar(Request $request)
-    {
 
+    public function obtenerDatos($request)
+    {
         $parametros = $request->busqueda;
 
         $start = new Carbon($parametros['startdate']);
@@ -68,12 +75,24 @@ class DeliveryController extends Controller
         if ($parametros['total'] != 0) {
             $movimiento = $movimiento->where('total', $parametros['total']);;
         }
-        $movimiento = $movimiento->get();
+        return $movimiento = $movimiento->get();
+    }
 
+
+
+    public function generar(Request $request)
+    {
+
+        $movimiento = $this->obtenerDatos($request);
 
         return $movimiento;
     }
 
+
+    public function excel(Request $request)
+    {
+        return Excel::download(new DeliveryExport($request), 'ReporteClientes.csv');
+    }
 
     public function create()
     {

@@ -151,7 +151,7 @@ new Vue({
 
                 Swal.fire(
                     'Scanner updated successfully',
-                    '', 
+                    '',
                     'success'
                 )
                 this.getScanners();

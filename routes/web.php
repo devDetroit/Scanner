@@ -75,6 +75,7 @@ Route::prefix('facilities')->group(function () {
 
 Route::prefix('delivery')->group(function () {
     Route::get('formulario', [DeliveryController::class, 'index'])->name('delivery.index');
+    Route::get('latest', [DeliveryController::class, 'latest']);
     Route::post('guardar', [DeliveryController::class, 'store']);
     Route::prefix('reporte')->group(function () {
         Route::get('', [DeliveryController::class, 'indexReporte'])->name('report.index');

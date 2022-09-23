@@ -3,8 +3,10 @@
 new Vue({
     el: "#delivery",
     created: function () {
+        this.getLatestRecords();
     },
     data: {
+        latest: [],
         cargaScanner: 0,
         scanners: [],
         facilities: [],
@@ -67,17 +69,17 @@ new Vue({
             this.scanner.active = null;
             this.scanner.facility_id = null;
         },
-        /*  getFacilities: function (page) {
- 
-             var url = "/facilities/obtener";
-             axios.get(url).then(response => {
-                 this.facilities = response.data;
- 
-             }).catch(function (error) {
-                 toastr.warning("Error", "Ha ocurrido un error ");
-                 console.log(error);
-             });
-         }, */
+        getLatestRecords: function (page) {
+
+            var url = "/delivery/latest";
+            axios.get(url).then(response => {
+                this.latest = response.data;
+
+            }).catch(function (error) {
+                toastr.warning("Error", "Ha ocurrido un error ");
+                console.log(error);
+            });
+        },
 
         changePage: function (page) {
             this.pagination.current_page = page;
@@ -92,6 +94,7 @@ new Vue({
                     title: 'Record Entered Successfully',
                     text: '',
                 })
+                this.getLatestRecords();
             }).catch(function (error) {
 
                 var array = []
@@ -101,46 +104,17 @@ new Vue({
                 Swal.fire(array[0],
                     array[1])
 
-                /*  Swal.fire(array[0],
-                     array[1]) */
-                /* array.forEach(element =>
-                    Swal.fire(element[0]
-                    )) */
 
-
-                /*  for (const [key, value] of Object.entries(error.response.data)) {
-                     Swal.fire(
-                         `${key}: ${value}`
-                         ,
-                         '',
-                         'error'
-                     )
-                 } */
 
             });
         },
-        removeScanner: function (scanner) {
-            this.scannerData = scanner;
-            $("#eliminar").modal("show");
-        },
-
-        deleteScanner: function () {
-            var url = "/scanner/eliminar";
-            var data = {
-                'scanner': this.scannerData
-            };
-            axios.post(url, data).then(() => {
-                Swal.fire(
-                    'Scanner deleted successfully',
-                    'success'
-                )
-                this.getScanners();
-                this.resetData();
-                $("#eliminar").modal("hide");
-            }).catch(function (error) {
-                toastr.warning("Error", "Ha ocurrido un error ");
-                console.log(error);
+        formatPrice: function (value) {
+            var formatter = new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                minimumFractionDigits: 2,
             });
+            return formatter.format(value);
         },
     }
 });
