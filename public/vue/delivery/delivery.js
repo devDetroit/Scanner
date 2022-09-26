@@ -23,7 +23,7 @@ new Vue({
 
         initializeTable() {
             this.table = new Tabulator("#records-table", {
-                height: 205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+                height: 450, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
                 ajaxURL: "/delivery/latest", //ajax URL
                 layout: "fitColumns", //fit columns to width of table (optional)
                 columns: [ //Define Table Columns
