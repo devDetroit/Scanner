@@ -12,20 +12,12 @@ class DeliveryExport implements FromView
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function __construct($dato)
-    {
-        $this->dato = $dato;
-    }
 
     public function view(): View
     {
 
-        $controlador = new DeliveryController;
-        /* $datos = $controlador->obtenerDatos($this->dato); */
-
-        $datos = Delivery::all();
         return view('delivery.excel.excel', [
-            'data' => $datos
+            'data' => Delivery::whereDate('created_at', date('Y-m-d'))->get()
         ]);
     }
 }

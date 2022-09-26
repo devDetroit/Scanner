@@ -1,7 +1,6 @@
-<table class="table table-striped">
+<table style="text-align: center;">
     <thead>
         <tr>
-            <th>#</th>
             <th>Mail</th>
             <th>Shop Name</th>
             <th>Shop Address</th>
@@ -16,7 +15,6 @@
     <tbody>
         @foreach($data as $delivery)
         <tr>
-            <td>{{ $delivery['id'] }}</td>
             <td>{{ $delivery['mail']  }}</td>
             <td>{{ $delivery['shop_name'] }}</td>
             <td>{{ $delivery['shop_address'] }}</td>
@@ -30,20 +28,16 @@
             <td>Credit Card</td>
             @elseif($delivery['payment_method'] == 4)
             <td>Charge Account</td>
+            @else
+            <td>NULL</td>
             @endif
 
             @if($delivery['returned'] == 1)
             <td>Yes</td>
-            @elseif($delivery['returned'] == 1)
+            @else
             <td>No</td>
             @endif
-
-            @if($delivery['returned'] != null)
             <td>{{ $delivery['parts_returned'] }}</td>
-            @elseif($delivery['returned'] == null)
-            <td>N/A</td>
-            @endif
-
             <td>${{ number_format($delivery['total'], 2) }}</td>
         </tr>
         @endforeach

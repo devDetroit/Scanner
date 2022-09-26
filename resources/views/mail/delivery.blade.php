@@ -1,17 +1,1 @@
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-    <title>Happy birthday to you!</title>
-
-</head>
-
-<body>
-
-    <p>Happy Birthday, <strong>Cesar!</strong>!</p>
-
-</body>
-
-</html>
+<div>This is the daily delivery report from <strong> {{ date('Y-m-d') }}</strong></div>
