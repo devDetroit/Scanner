@@ -29,8 +29,18 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/listado'; ///RouteServiceProvider::HOME;
 
+    /*     protected $redirectTo = RouteServiceProvider::HOME; */
+
+    public function redirectTo()
+    {
+
+        if (auth()->user()->role == 1) {
+            return '/listado';
+        } else {
+            return '/delivery/formulario';
+        }
+    }
     /**
      * Create a new controller instance.
      *
@@ -70,7 +80,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
-            'admin' => $data['admin']
+            'admin' => $data['admin'],
+            'role' => $data['role']
         ]);
     }
 }

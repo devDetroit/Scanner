@@ -57,6 +57,7 @@
                         </li>
                         @endif
                         @else
+                        @if(auth()->user()->role == 1)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('scanner.index') }}">{{ __('Scanner') }}</a>
                         </li>
@@ -66,6 +67,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('log') }}">{{ __('Log') }}</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('delivery.index') }}">{{ __('Delivery') }}</a>
+                        </li>
+                        @endif
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

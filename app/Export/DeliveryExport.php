@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Exports;
+namespace App\Export;
 
 use App\Http\Controllers\DeliveryController;
+use App\Models\Delivery;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
@@ -20,9 +21,10 @@ class DeliveryExport implements FromView
     {
 
         $controlador = new DeliveryController;
-        $datos = $controlador->obtenerDatos($this->dato);
+        /* $datos = $controlador->obtenerDatos($this->dato); */
 
-        return view('inventarios.reportes.existencias.excel.template', [
+        $datos = Delivery::all();
+        return view('delivery.excel.excel', [
             'data' => $datos
         ]);
     }

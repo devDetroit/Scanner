@@ -15,6 +15,7 @@ class Delivery extends Model
     use HasFactory;
     protected $table = 'deliveries';
     protected $primaryKey = 'id';
+    protected $appends = array('FormaPago', 'Retorno');
     protected $dates = [
         'deleted_at',
         'updated_at',
@@ -43,4 +44,26 @@ class Delivery extends Model
         'parts_returned',
         'total',
     ];
+
+    public function getFormaPagoAttribute()
+    {
+        if ($this->payment_method == 1) {
+            return "CASH";
+        } elseif ($this->payment_method == 2) {
+            return "CHECK";
+        } elseif ($this->payment_method == 3) {
+            return "CREDIT CARD";
+        } elseif ($this->payment_method == 4) {
+            return "CHARGE ACCOUNT";
+        }
+    }
+
+    public function getRetornoAttribute()
+    {
+        if ($this->returned == 1) {
+            return "YES";
+        } elseif ($this->returned == 0) {
+            return "NO";
+        }
+    }
 }

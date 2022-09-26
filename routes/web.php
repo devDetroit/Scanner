@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('reporte')->group(function () {
             Route::get('', [DeliveryController::class, 'indexReporte'])->name('report.index');
             Route::post('generar', [DeliveryController::class, 'generar']);
-            Route::post('generar/excel', [DeliveryController::class, 'excel']);
+            Route::get('generar/excel', [DeliveryController::class, 'excel']);
         });
     });
 });

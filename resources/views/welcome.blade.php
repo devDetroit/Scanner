@@ -26,7 +26,6 @@
                                         <input type="text" style="border-width: 3px;" class="form-control form-control-lg" :disabled="empleadoCheck" required ref="search" v-model="busqueda.empleado" aria-label="Username" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
-                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                             </form>
                             <br><br>
                             <form method="POST" v-on:submit.prevent="GuardarScanner()">
@@ -37,9 +36,8 @@
                                         <h1><b>SCANNER</b></h1>
                                     </label>
 
-                                    <input type="text" style="border-width: 3px;"   class="form-control form-control-lg" required ref="scanner" v-model="busqueda.scanner">
+                                    <input type="text" style="border-width: 3px;" class="form-control form-control-lg" required ref="scanner" v-model="busqueda.scanner">
                                 </div>
-                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                             </form>
                         </div>
                     </div>

@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'name' => 'admin',
                 'username' => 'admin',
                 'admin' => 1,
+                'role' => 1,
                 'active' => 1,
                 'password' => Hash::make('temporal')
             ]
@@ -35,6 +36,7 @@ class UserSeeder extends Seeder
                 'name' => 'DAXJ Warren Ave',
                 'username' => '172.50.16',
                 'admin' => 0,
+                'role' => 1,
                 'active' => 1,
                 'password' => Hash::make('temporal')
             ]
@@ -52,6 +54,7 @@ class UserSeeder extends Seeder
                 'name' => 'DAXJ El Paso',
                 'username' => '10.0.60',
                 'admin' => 0,
+                'role' => 1,
                 'active' => 1,
                 'password' => Hash::make('temporal')
             ]
@@ -69,6 +72,7 @@ class UserSeeder extends Seeder
                 'name' => 'DAXJ Ferndale',
                 'username' => '10.10.8',
                 'admin' => 0,
+                'role' => 1,
                 'active' => 1,
                 'password' => Hash::make('temporal')
             ]
@@ -79,6 +83,7 @@ class UserSeeder extends Seeder
                 'name' => 'DAXJ WH Juarez',
                 'username' => '192.168.60',
                 'admin' => 0,
+                'role' => 1,
                 'active' => 1,
                 'password' => Hash::make('temporal')
             ]
@@ -95,6 +100,7 @@ class UserSeeder extends Seeder
                 'name' => 'DAXJ Reman',
                 'username' => '192.168.81',
                 'admin' => 0,
+                'role' => 1,
                 'active' => 1,
                 'password' => Hash::make('temporal')
             ]

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\DeliveryExport;
+use App\Export\DeliveryExport;
 use App\Models\Delivery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,10 +31,7 @@ class DeliveryController extends Controller
 
     public function latest()
     {
-        return [
-            'delivery' => Delivery::orderBy('created_at', 'desc')->get()->take(10),
-            'user' => auth()->user()->email ?? null
-        ];
+        return Delivery::orderBy('created_at', 'desc')->get()->take(10);
     }
 
     /**
@@ -97,8 +94,9 @@ class DeliveryController extends Controller
 
     public function excel(Request $request)
     {
-        return Excel::download(new DeliveryExport($request), 'ReporteClientes.csv');
+        return Excel::download(new DeliveryExport($request = null), 'reportedelivery.csv');
     }
+
 
     public function create()
     {

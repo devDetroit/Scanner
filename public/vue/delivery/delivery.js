@@ -1,7 +1,8 @@
+
 new Vue({
     el: "#delivery",
-    created: function () {
-        this.getLatestRecords();
+    mounted: function () {
+        this.initializeTable();
     },
     data: {
         latest: [],
@@ -19,6 +20,61 @@ new Vue({
         table: null
     },
     methods: {
+
+        initializeTable() {
+            this.table = new Tabulator("#records-table", {
+                height: 205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+                ajaxURL: "/delivery/latest", //ajax URL
+                layout: "fitColumns", //fit columns to width of table (optional)
+                columns: [ //Define Table Columns
+                    {
+                        title: "#",
+                        field: "id",
+                        width: 10
+                    },
+                    {
+                        title: "E-Mail",
+                        field: "mail",
+                        width: 150
+                    },
+                    {
+                        title: "Shop Name",
+                        field: "shop_name",
+                        hozAlign: "left",
+                        width: 130
+                    },
+                    {
+                        title: "Driver Assigned",
+                        field: "driver_assigned",
+                        width: 130
+                    },
+                    {
+                        title: "Payment Method",
+                        field: "FormaPago"
+                    },
+                    {
+                        title: "Returned",
+                        field: "Retorno"
+                    },
+                    {
+                        title: "Parts Returned",
+                        field: "parts_returned"
+                    },
+                    {
+                        title: "Total",
+                        field: "total", formatter: "money", formatterParams:{
+                            symbol:"$",
+                        }
+                    },
+                    {
+                        title: "Created At",
+                        field: "created_at",
+                        sorter: "date",
+                        hozAlign: "center"
+                    },
+                ],
+            });
+        },
         resetData() {
             for (const key in this.delivery) {
                 this.delivery[key] = '';
@@ -27,9 +83,7 @@ new Vue({
         getLatestRecords() {
             var url = "/delivery/latest";
             axios.get(url).then(response => {
-                this.latest = response.data.delivery;
                 this.delivery.mail = response.data.user;
-
             }).catch(function (error) {
                 console.error(error);
             });
@@ -43,7 +97,7 @@ new Vue({
                     text: '',
                 })
                 this.resetData();
-                this.getLatestRecords();
+                this.table.setData();
             }).catch(function (error) {
                 var array = []
                 for (const [key, value] of Object.entries(error.response.data)) {
@@ -53,13 +107,6 @@ new Vue({
                     array[1])
             });
         },
-        formatPrice(value) {
-            var formatter = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-                minimumFractionDigits: 2,
-            });
-            return formatter.format(value);
-        },
     }
 });
+
