@@ -8,7 +8,7 @@
                 <div class="card-body">
 
                     <h5 class="card-title text-center">Submit Cupon</h5>
-                    <form method="POST" v-on:submit.prevent="Guardar()">
+                    <form method="POST" v-on:submit.prevent="guardar()">
                         @csrf
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">
@@ -118,6 +118,7 @@
                     <h5 class="card-title text-center">Last Records</h5>
                 </div>
                 <div class="card-body">
+                    <div id="records-table"></div>
                     <div class="table table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -175,6 +176,8 @@
 
 @push('scripts')
 
+<link href="https://unpkg.com/tabulator-tables@5.3.4/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.3.4/dist/js/tabulator.min.js"></script>
 <!-- Vue Conceptos-->
 <script src="/vue/delivery/delivery.js"></script>
 <!-- Select2 -->

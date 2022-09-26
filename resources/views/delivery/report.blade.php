@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <div id="reporte" class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow p-1 bg-body rounded">
+                <!-- <div class="card-header">
                     <h3>Records</h3>
                     <template v-if="resultados">
                         <template v-if="!cargando && resultados.length>0">
@@ -20,9 +20,31 @@
                             </div>
                         </template>
                     </template>
-                </div><!-- /.card-header -->
-                <div class="card-body p-0">
-                    <template v-if="!cargando">
+                </div> -->
+                <div class="card-body">
+                    <h5 class="card-title">Report Records</h5>
+                    <form class="row row-cols-lg-auto g-3 align-items-center mt-2">
+                        <div class="col-12">
+                            <label class="visually-hidden" for="inlineFormInputGroupUsername">From:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">@</div>
+                                <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="from date">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="visually-hidden" for="inlineFormInputGroupUsername">To:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">@</div>
+                                <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="to date">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">search</button>
+                        </div>
+                    </form>
+                    <div id="table-records"></div>
+                    <!--     <template v-if="!cargando">
                         <div class="table table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -76,7 +98,7 @@
                                 <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                             </p>
                         </div>
-                    </template>
+                    </template> -->
                 </div><!-- /.card-body -->
             </div><!-- /.card-->
         </div>
@@ -87,5 +109,7 @@
 
 @push('scripts')
 <!-- Vue -->
+<link href="https://unpkg.com/tabulator-tables@5.3.4/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.3.4/dist/js/tabulator.min.js"></script>
 <script src="/vue/delivery/reporte.js"></script>
 @endpush
