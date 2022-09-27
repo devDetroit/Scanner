@@ -46,9 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('latest', [DeliveryController::class, 'latest']);
         Route::post('guardar', [DeliveryController::class, 'store']);
         Route::prefix('reporte')->group(function () {
-            Route::get('', [DeliveryController::class, 'indexReporte'])->name('report.index');
-            Route::post('generar', [DeliveryController::class, 'generar']);
-            Route::get('generar/excel', [DeliveryController::class, 'excel']);
+            Route::get('', [DeliveryController::class, 'indexReporte'])->name('report.index')->middleware('role');;
+            Route::get('generar', [DeliveryController::class, 'generar']);
         });
     });
 });

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\DeliveryMail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class DeliveryController extends Controller
@@ -34,8 +35,11 @@ class DeliveryController extends Controller
 
     public function generar(Request $request)
     {
-        $movimiento = $this->obtenerDatos($request);
-        return  $movimiento;
+        $start = new Carbon($request['startdate']);
+        $enddate = new Carbon($request['enddate']);
+
+        $movimiento = Delivery::whereBetween('created_at', [$start->format('Y-m-d 00:00:00'), $enddate->format('Y-m-d 23:59:59')]);
+        return  $movimiento->get();
     }
 
     public function excel()

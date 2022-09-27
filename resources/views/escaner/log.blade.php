@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Scanners log')
 @section('content')
 
 <style>

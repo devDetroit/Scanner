@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Device Control')
 @section('content')
 <style>
     body {

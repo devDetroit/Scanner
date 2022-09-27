@@ -151,6 +151,7 @@ class ScannerController extends Controller
             return 1;
         }
 
+    
         $scanner = Scanner::find($escaner['id']);
         $scanner->description = $escaner['description'];
         $scanner->status = $escaner['status'];

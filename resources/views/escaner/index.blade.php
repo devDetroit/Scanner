@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "Scanners CRUD")
 @section('content')
 <div id="scanner" class="container-fluid">
     <template v-if="cargaScanner == 1">

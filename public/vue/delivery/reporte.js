@@ -7,15 +7,7 @@ new Vue({
         cargaexcel: false,
 
         busqueda: {
-            mail: '',
-            shop_name: '',
-            shop_address: '',
-            driver_assigned: '',
-            part_number: '',
-            payment_method: 0,
-            returned: null,
-            parts_returned: 0,
-            total: 0,
+
             startdate: null,
             enddate: null
         },
@@ -23,89 +15,66 @@ new Vue({
     },
     computed: {},
     methods: {
-        consultarReporte: function () {
-            this.cargando = 1;
-            this.resultados = [];
-            var url = "/delivery/reporte/generar";
-            var data = {
-                busqueda: this.busqueda,
-            };
-            axios
-                .post(url, data)
-                .then((response) => {
-                    this.cargando = 0;
-                    this.resultados = response.data;
-                })
-                .catch(function (error) {
-                    toastr.warning("Error", "Ha ocurrido un error ");
-                    console.log(error);
-                });
-        },
 
-        rellenarSucursales: function () {
-            this.sucursalAsignada = [];
-            this.zonaSeleccionada.forEach((zone) => {
-                this.sucursales.forEach((branch) => {
-                    if (zone.cZonaFolio == branch.cSucursalZona) {
-                        this.sucursalAsignada.push(branch);
-                    }
-                });
-            });
+        initializeTable() {
+            console.log(this.busqueda);
+            this.table = new Tabulator("#records-table", {
+                height: 450, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+                ajaxURL: "/delivery/reporte/generar", //ajax URL
+                ajaxParams: { startdate: this.busqueda.startdate, enddate: this.busqueda.enddate }, //ajxax parameters
+                layout: "fitColumns", //fit columns to width of table (optional)
+                columns: [ //Define Table Columns
+                    {
+                        title: "#",
+                        field: "id",
+                        width: 10
+                    },
+                    {
+                        title: "E-Mail",
+                        field: "mail",
+                        width: 150
+                    },
+                    {
+                        title: "Shop Name",
+                        field: "shop_name",
+                        hozAlign: "left",
+                        width: 130
+                    },
+                    {
+                        title: "Driver Assigned",
+                        field: "driver_assigned",
+                        width: 130
+                    },
+                    {
+                        title: "Payment Method",
+                        field: "FormaPago"
+                    },
+                    {
+                        title: "Returned",
+                        field: "Retorno"
+                    },
+                    {
+                        title: "Parts Returned",
+                        field: "parts_returned"
+                    },
+                    {
+                        title: "Total",
+                        field: "total", formatter: "money", formatterParams: {
+                            symbol: "$",
+                        }
+                    },
+                    {
+                        title: "Created At",
+                        field: "created_at",
+                        sorter: "date",
+                        hozAlign: "center"
+                    },
+                ],
 
-            this.busqueda.sucursal = [];
-
-            this.zonaSeleccionada.forEach((zone) => {
-                this.sucursalAsignada.forEach((branch) => {
-                    if (branch.cSucursalZona == zone.cZonaFolio) {
-                        let existe = this.busqueda.sucursal.find(
-                            (sucursal) =>
-                                sucursal.cSucursalFolio == branch.cSucursalFolio
-                        );
-                        if (!existe) this.busqueda.sucursal.push(branch);
-                    }
-                });
-            });
-        },
-        todasZonas: function () {
-            if (this.CheckZona) {
-                this.zonaSeleccionada = this.zonas;
-                this.rellenarSucursales();
-            } else {
-                this.zonaSeleccionada = [];
-                this.rellenarSucursales();
-            }
-        },
-
-        generarExcel: function () {
-            this.cargaexcel = true;
-            var url = "/delivery/reporte/generar/excel";
-            var data = {
-                busqueda: this.busqueda,
-            };
-            axios({
-                method: "post",
-                url: url,
-                responseType: "blob",
-                data: data,
-            }).then((response) => {
-                this.cargaexcel = false;
-                let blob = new Blob([response.data], {
-                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                });
-                let link = document.createElement("a");
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "ReporteProducto.csv";
-                link.click();
             });
         },
-
-        formatPrice: function (value) {
-            var formatter = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-                minimumFractionDigits: 2,
-            });
-            return formatter.format(value);
+        downloadExcel() {
+            this.table.download("csv", "ReportDetails.csv");
         },
     },
 });
