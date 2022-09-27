@@ -27,7 +27,7 @@
                             <button type="button" v-on:click="downloadExcel" class="btn btn-warning">Download .CSV</button>
                         </div>
                     </form>
-                    <div id="records-tablehhhhhhhhhhhhhhhh"></div>
+                    <div id="records-table"></div>
                 </div><!-- /.card-body -->
             </div><!-- /.card-->
         </div>
