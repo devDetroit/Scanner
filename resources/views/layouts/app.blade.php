@@ -70,6 +70,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('delivery.index') }}">{{ __('Delivery') }}</a>
                         </li>
+                        @if(auth()->user()->admin == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('report.index') }}">{{ __('Report') }}</a>
+                        </li>
+                        @endif
                         @endif
 
                         <li class="nav-item dropdown">
