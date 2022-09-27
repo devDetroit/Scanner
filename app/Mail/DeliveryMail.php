@@ -30,7 +30,7 @@ class DeliveryMail extends Mailable
     {
         $currentDate = date('Y-m-d');
         return $this->from('development@detroitaxle.com', 'DetroitAxle Automated Alerts')
-            ->attach(storage_path("app/tmp/reportdelivery$currentDate.csv"))
+            ->attachFromStorage("tmp/reportdelivery$currentDate.csv")
             ->subject('Daily Report')->view('mail.delivery');
     }
 }

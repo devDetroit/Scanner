@@ -49,7 +49,7 @@ class DeliveryController extends Controller
             Excel::store(new DeliveryExport(), "tmp/reportdelivery$currentDate.csv");
         }
         if (file_exists($this->getStoragePath($currentDate)))
-            Mail::to('dortega@detroitaxle.com')->send(new DeliveryMail());
+            Mail::to('dortega@detroitaxle.com')->cc('cperez@detroitaxle.com')->send(new DeliveryMail());
     }
 
     private function getStoragePath($date)
