@@ -96,7 +96,6 @@ class ScannerController extends Controller
         $user = User::where('username', $tmpArr)->first();
         $facilites = FacilityUser::where('users_id', $user->id)->get();
         $scanner = Scanner::whereIn('facility_id', $facilites->pluck('facilities_id'))->get();
-
         return MovementLog::whereIn('scanners_id', $scanner->pluck('id'))
             ->orderBy('created_at', 'desc')
             ->with('scanner')
@@ -151,7 +150,7 @@ class ScannerController extends Controller
             return 1;
         }
 
-    
+
         $scanner = Scanner::find($escaner['id']);
         $scanner->description = $escaner['description'];
         $scanner->status = $escaner['status'];
@@ -173,47 +172,58 @@ class ScannerController extends Controller
 
     public function Checar(Request $request)
     {
-        $datos = $request;
-        $scanner  = Scanner::where('description', $datos->scanner)->where('active', 1)->first();
+
+        $returnMessage = '';
+        $returnValue = 0;
+
+        $scanner  = Scanner::where([
+            ['description', $request->scanner],
+            ['active', 1]
+        ])->first();
+
         if (!$scanner) {
-            return 0;
-        } else {
-            $movimiento = MovementLog::whereHas('scanner', function ($query) use ($scanner) {
-                $query->where('description', $scanner->description);
-            })->where('end', '=', null)->first();
-            if (!$movimiento) {
-                $movimiento = new MovementLog;
-                $movimiento->scanners_id = $scanner->id;
-                $movimiento->start = Carbon::now();
-                $movimiento->user = $datos->empleado;
-                $movimiento->save();
-                $scanner->status = Scanner::ENUSO;
-                $scanner->save();
-                $tipo  = 1;
-            } else {
-
-
-                $admin = User::where('name', $datos->empleado)->first();
-
-                if (!$admin) {
-                    if ($movimiento->user !=  $datos->empleado) {
-                        return 2;
-                    }
-                }
-
-                $movimiento->end = Carbon::now();
-                $movimiento->save();
-                $scanner->status = Scanner::DISPONIBLE;
-                $scanner->save();
-                $tipo  = 2;
-            }
-
-            return [
-                'scanner' => $scanner,
-                'movimiento' => $movimiento,
-                'tipo' => $tipo,
-            ];
+            return response()->json([
+                'returnMessage' => "Escaner ingresado no existe",
+                'returnValue' => -1,
+            ]);
         }
+
+        $movimiento = MovementLog::whereHas('scanner', function ($query) use ($scanner) {
+            $query->where('description', $scanner->description);
+        })->where('end', '=', null)->first();
+
+        if (!$movimiento) {
+            $movimiento = new MovementLog;
+            $movimiento->scanners_id = $scanner->id;
+            $movimiento->start = Carbon::now();
+            $movimiento->user = $request->empleado;
+            $movimiento->save();
+            $scanner->status = Scanner::ENUSO;
+            $scanner->save();
+            $returnMessage = 'Scanner registrado';
+            $returnValue = 1;
+        } else {
+            $admin = User::where('name', $request->empleado)->first();
+            if (!$admin) {
+                if ($movimiento->user !=  $request->empleado) {
+                    return response()->json([
+                        'returnMessage' => "No existe registro con el usuario y escaner ingresados",
+                        'returnValue' => -2,
+                    ]);
+                }
+            }
+            $movimiento->end = Carbon::now();
+            $movimiento->save();
+            $scanner->status = Scanner::DISPONIBLE;
+            $scanner->save();
+            $returnMessage = 'Scanner devuelto';
+            $returnValue = 1;
+        }
+
+        return response()->json([
+            'returnMessage' => $returnMessage,
+            'returnValue' => $returnValue,
+        ]);
     }
 
     public function listadoIndex()
