@@ -46,7 +46,7 @@ class DeliveryController extends Controller
         $enddate = new Carbon($request['end']);
         $delivery = Delivery::whereBetween('created_at', [$start->format('Y-m-d 00:00:00'), $enddate->format('Y-m-d 23:59:59')]);
 
-        if ($request['returned'] != null) {
+        if ($request['returned'] != 2) {
             $delivery = $delivery->where('returned', $request['returned']);
         }
         $delivery = $delivery->get();
