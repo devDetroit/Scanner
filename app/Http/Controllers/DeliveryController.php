@@ -79,6 +79,8 @@ class DeliveryController extends Controller
 
     public function generar(Request $request)
     {
+
+       /*  return Excel::download(new DeliveryExport(), "reportdelivery.xlsx"); */
         $start = new Carbon($request['startdate']);
         $enddate = new Carbon($request['enddate']);
         $movimiento = Delivery::whereBetween('created_at', [$start->format('Y-m-d 00:00:00'), $enddate->format('Y-m-d 23:59:59')]);

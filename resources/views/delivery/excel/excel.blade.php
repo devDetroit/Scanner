@@ -70,6 +70,10 @@
             <td style="border: 5px solid black">CHARGE ACCOUNT</td>
             <td style="border: 5px solid black">${{ number_format($totales['payform']['CHARGE ACCOUNT'], 2) }}</td>
         </tr>
+        <tr>
+            <td style="border: 5px solid black">TOTAL</td>
+            <td style="border: 5px solid black; background-color:green">${{ number_format($totales['payform']['CHARGE ACCOUNT'] + $totales['payform']['CREDIT CARD'] + $totales['payform']['CHECK'] + $totales['payform']['CASH'], 2) }}</td>
+        </tr>
 
     </tbody>
 </table>

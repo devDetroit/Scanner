@@ -62,23 +62,23 @@
                                 <template v-if="total">
                                     <tr>
                                         <td>CASH</td>
-                                        <td>@{{ total['CASH'] }}</td>
+                                        <td>@{{ formatPrice(total['CASH']) }}</td>
                                     </tr>
                                     <tr>
                                         <td>CHECK</td>
-                                        <td>@{{ total['CHECK'] }}</td>
+                                        <td>@{{ formatPrice(total['CHECK']) }}</td>
                                     </tr>
                                     <tr>
                                         <td>CREDIT CARD</td>
-                                        <td>@{{ total['CREDIT CARD'] }}</td>
+                                        <td>@{{ formatPrice(total['CREDIT CARD']) }}</td>
                                     </tr>
                                     <tr>
                                         <td>CHARGE ACCOUNT</td>
-                                        <td>@{{ total['CHARGE ACCOUNT'] }}</td>
+                                        <td>@{{ formatPrice(total['CHARGE ACCOUNT)']) }}</td>
                                     </tr>
                                     <tr>
                                         <td> <strong>TOTAL</strong> </td>
-                                        <td> <strong>@{{ total['CHARGE ACCOUNT'] + total['CREDIT CARD'] + total['CHECK'] + total['CASH'] }}</strong> </td>
+                                        <td> <strong>@{{ formatPrice(total['CHARGE ACCOUNT'] + total['CREDIT CARD'] + total['CHECK'] + total['CASH']) }}</strong> </td>
                                     </tr>
                                 </template>
                             </tbody>
