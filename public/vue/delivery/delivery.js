@@ -7,7 +7,6 @@ new Vue({
     data: {
         latest: [],
         delivery: {
-            mail: '',
             shop_name: '',
             shop_address: '',
             driver_assigned: '',
@@ -33,8 +32,8 @@ new Vue({
                         width: 10
                     },
                     {
-                        title: "E-Mail",
-                        field: "mail",
+                        title: "Name",
+                        field: "user.name",
                         width: 150
                     },
                     {
@@ -62,8 +61,8 @@ new Vue({
                     },
                     {
                         title: "Total",
-                        field: "total", formatter: "money", formatterParams:{
-                            symbol:"$",
+                        field: "total", formatter: "money", formatterParams: {
+                            symbol: "$",
                         }
                     },
                     {
@@ -79,14 +78,6 @@ new Vue({
             for (const key in this.delivery) {
                 this.delivery[key] = '';
             }
-        },
-        getLatestRecords() {
-            var url = "/delivery/latest";
-            axios.get(url).then(response => {
-                this.delivery.mail = response.data.user;
-            }).catch(function (error) {
-                console.error(error);
-            });
         },
         guardar() {
             var url = "/delivery/guardar";

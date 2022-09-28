@@ -34,7 +34,7 @@ class Delivery extends Model
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
     protected $fillable = [
-        'mail',
+        'user_id',
         'shop_name',
         'shop_address',
         'driver_assigned',
@@ -65,5 +65,9 @@ class Delivery extends Model
         } elseif ($this->returned == 0) {
             return "NO";
         }
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id' );
     }
 }

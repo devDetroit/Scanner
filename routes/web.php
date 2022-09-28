@@ -44,6 +44,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('', [DeliveryController::class, 'indexReporte'])->name('report.index')->middleware('role');;
             Route::get('generar', [DeliveryController::class, 'generar']);
         });
+        Route::prefix('dashboard')->group(function () {
+            Route::get('', [DeliveryController::class, 'indexDashboard'])->name('report.dashborad')->middleware('role');;
+            Route::get('generar', [DeliveryController::class, 'generateDashboard']);
+        });
     });
 });
 

@@ -11,15 +11,37 @@
                         <div class="col-12">
                             <label class="visually-hidden" for="inlineFormInputGroupUsername">From:</label>
                             <div class="input-group">
-                                <div class="input-group-text">@</div>
+                                <div class="input-group-text">From</div>
                                 <input type="date" v-model="busqueda.startdate" class="form-control" id="inlineFormInputGroupUsername" placeholder="from date">
                             </div>
                         </div>
                         <div class="col-12">
                             <label class="visually-hidden" for="inlineFormInputGroupUsername">To:</label>
                             <div class="input-group">
-                                <div class="input-group-text">@</div>
+                                <div class="input-group-text">To</div>
                                 <input type="date" v-model="busqueda.enddate" class="form-control" id="inlineFormInputGroupUsername" placeholder="to date">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="visually-hidden" for="inlineFormInputGroupUsername">To:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">Payment Method </div>
+                                <select name="cSucursalIdioma" v-model="busqueda.payment_method" class="form-control">
+                                    <option value=1>CASH</option>
+                                    <option value=2>CHECK</option>
+                                    <option value=3>CREDIT CARD</option>
+                                    <option value=4>CHARGE ACCOUNT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="visually-hidden" for="inlineFormInputGroupUsername">To:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">Returned </div>
+                                <select name="cSucursalIdioma" v-model="busqueda.returned" class="form-control">
+                                    <option value=1>YES</option>
+                                    <option value=0>NO</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12">

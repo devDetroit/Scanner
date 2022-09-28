@@ -74,6 +74,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('report.index') }}">{{ __('Report') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('report.dashborad') }}">{{ __('Dashboard') }}</a>
+                        </li>
                         @endif
                         @endif
 

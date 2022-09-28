@@ -13,12 +13,6 @@
                             <div class="col-md-6 border-end">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">
-                                        E-Mail <span class="text-danger"> * </span>
-                                    </label>
-                                    <input type="mail" class="form-control" required v-model="delivery.mail" aria-label="Username" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">
                                         Shop Name <span class="text-danger"> * </span>
                                     </label>
                                     <input type="text" class="form-control" required v-model="delivery.shop_name" aria-label="Username" aria-describedby="basic-addon1">

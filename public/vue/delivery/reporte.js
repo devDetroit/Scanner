@@ -7,9 +7,9 @@ new Vue({
         cargaexcel: false,
 
         busqueda: {
-
             startdate: null,
-            enddate: null
+            enddate: null,
+            returned: null
         },
         resultados: [],
     },
@@ -21,7 +21,7 @@ new Vue({
             this.table = new Tabulator("#records-table", {
                 height: 450, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
                 ajaxURL: "/delivery/reporte/generar", //ajax URL
-                ajaxParams: { startdate: this.busqueda.startdate, enddate: this.busqueda.enddate }, //ajxax parameters
+                ajaxParams: { startdate: this.busqueda.startdate, enddate: this.busqueda.enddate, payment: this.busqueda.payment_method, returned: this.busqueda.returned }, //ajxax parameters
                 layout: "fitColumns", //fit columns to width of table (optional)
                 columns: [ //Define Table Columns
                     {
@@ -30,8 +30,8 @@ new Vue({
                         width: 10
                     },
                     {
-                        title: "E-Mail",
-                        field: "mail",
+                        title: "Name",
+                        field: "user.name",
                         width: 150
                     },
                     {
