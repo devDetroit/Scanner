@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+
+Route::get('prueba', function () {
+    $facility = new Facility;
+    $facility->name = 'Prueba';
+    $facility->status = 1;
+    $facility->save();
+    return $facility;
 });

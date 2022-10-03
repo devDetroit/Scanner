@@ -34,7 +34,14 @@ class MovementLog extends Model
         'user'
     ];
 
-
+    public function getUserAttribute($value)
+    {
+        return strtoupper($value);
+    }
+    public function setUserAttribute($value)
+    {
+        $this->attributes['user'] = strtoupper($value);
+    }
     public function scanner()
     {
         return $this->hasOne(Scanner::class, 'id', 'scanners_id');

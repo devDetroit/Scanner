@@ -89,7 +89,6 @@ class ScannerController extends Controller
 
     public function Historial()
     {
-
         $tmpArr = explode(".", request()->getClientIp());
         array_pop($tmpArr);
         $tmpArr = implode(".", $tmpArr);
@@ -205,7 +204,7 @@ class ScannerController extends Controller
         } else {
             $admin = User::where('name', $request->empleado)->first();
             if (!$admin) {
-                if ($movimiento->user !=  $request->empleado) {
+                if ($movimiento->user !=  strtoupper($request->empleado)) {
                     return response()->json([
                         'returnMessage' => "No existe registro con el usuario y escaner ingresados",
                         'returnValue' => -2,
