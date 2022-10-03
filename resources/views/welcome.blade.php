@@ -18,14 +18,14 @@
                             <h1><i class="fa-solid fa-user"></i> EMPLOYEE </h1>
                         </label>
                         <div class="input-group mb-3">
-                            <input id="employee" type="text" style="border-width: 3px;" class="form-control form-control-lg" v-on:keyup.enter="focusInput" required v-model="busqueda.empleado">
+                            <input id="employee" type="text" style="border-width: 3px;text-transform: uppercase;" class="form-control form-control-lg" v-on:keyup.enter="focusInput" required v-model="busqueda.empleado">
                         </div>
                     </div>
                     <div class="mb-3" style="margin-top: 100px;">
                         <label for="exampleInputPassword1" class="form-label">
                             <h1><i class="fa-solid fa-barcode"></i> SCANNER</h1>
                         </label>
-                        <input id="scanner" type="text" style="border-width: 3px;" class="form-control form-control-lg" required v-on:keyup.enter="focusInput" v-model="busqueda.scanner">
+                        <input id="scanner" type="text" style="border-width: 3px;text-transform: uppercase;" class="form-control form-control-lg" required v-on:keyup.enter="focusInput" v-model="busqueda.scanner">
                     </div>
                 </div>
             </div>
