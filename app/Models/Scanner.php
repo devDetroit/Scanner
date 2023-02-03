@@ -39,7 +39,8 @@ class Scanner extends Model
         'description',
         'status',
         'facility_id',
-        'active'
+        'active', 
+        'type'
     ];
 
     public function ultimoregistro()

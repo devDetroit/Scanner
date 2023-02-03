@@ -42,7 +42,7 @@ new Vue({
             axios.get(url, {
                 params: {
                     facility: this.searchFacility,
-                    type: 1,
+                    type: 2,
                 },
             })
                 .then((response) => {

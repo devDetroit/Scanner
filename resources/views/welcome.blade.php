@@ -37,7 +37,8 @@
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th class="fw-bold">Scanner</th>
+                                <th class="fw-bold">Type of Device</th>
+                                <th class="fw-bold">Device</th>
                                 <th class="fw-bold">User</th>
                                 <th class="fw-bold">Start</th>
                                 <th class="fw-bold">End</th>
@@ -46,6 +47,8 @@
                         <tbody>
                             <template v-if="historial.length > 0">
                                 <tr v-for="hist in historial">
+                                    <td v-if="hist.scanner.type == 1">Scanner</td>
+                                    <td v-else>GPS</td>
                                     <td>@{{ hist.scanner.description }}</td>
                                     <td>@{{ hist.user }}</td>
                                     <td>@{{ hist.start }}</td>

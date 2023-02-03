@@ -61,10 +61,19 @@
                             <a class="nav-link" href="{{ route('scanner.index') }}">{{ __('Scanner') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('listado') }}">{{ __('Tracking') }}</a>
+                            <a class="nav-link" href="{{ route('listado') }}">{{ __('Scanner Tracking') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('log') }}">{{ __('Log') }}</a>
+                            <a class="nav-link" href="{{ route('log') }}">{{ __('Scanner Log') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('gps.index') }}">{{ __('GPS') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listado.gps') }}">{{ __('GPS Tracking') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('log.gps') }}">{{ __('GPS Log') }}</a>
                         </li>
                         @else
                         <li class="nav-item">

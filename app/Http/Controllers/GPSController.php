@@ -10,18 +10,24 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ScannerController extends Controller
+class GPSController extends Controller
 {
 
 
     public function index()
     {
-        return view('escaner.index');
+        return view('gps.index');
     }
 
-    public function indexLog()
+    public function listadoIndexGps()
     {
-        return view('escaner.log');
+        return view('gps.lista');
+    }
+
+
+    public function indexLogGPS()
+    {
+        return view('gps.log');
     }
 
     public function obtener()
@@ -72,9 +78,8 @@ class ScannerController extends Controller
             $log = $log->where('user', 'LIKE', '%' . $request->user . '%');
         }
 
-
         $log = $log->whereHas('scanner', function ($query) use ($request) {
-            $query->where('type', 1);
+            $query->where('type', 2);
         });
 
 
@@ -101,7 +106,7 @@ class ScannerController extends Controller
         $user = User::where('username', $tmpArr)->first();
         $facilites = FacilityUser::where('users_id', $user->id)->get();
         $scanner = Scanner::whereIn('facility_id', $facilites->pluck('facilities_id'))->get();
-        return MovementLog::whereIn('scanners_id', $scanner->pluck('id'))
+        return MovementLog::where('type', 2)->whereIn('scanners_id', $scanner->pluck('id'))
             ->orderBy('created_at', 'desc')
             ->with('scanner')
             ->get()
@@ -116,7 +121,7 @@ class ScannerController extends Controller
             $scanner =  $scanner->whereIn('facility_id', $facilites->pluck('facilities_id'));
         }
 
-        $scanner = $scanner->where('type', 1)->paginate(10);
+        $scanner = $scanner->where('type', 2)->paginate(10);
         return [
             'pagination' => [
                 'total'        => $scanner->total(),
@@ -143,7 +148,7 @@ class ScannerController extends Controller
             "created_by" => auth()->user()->id
         ]));
 
-        $scanner->type = 1;
+        $scanner->type = 2;
         $scanner->save();
         return $scanner;
     }
@@ -187,7 +192,8 @@ class ScannerController extends Controller
 
         $scanner  = Scanner::where([
             ['description', $request->scanner],
-            ['active', 1],
+            ['active', 2],
+            ['type', 1]
         ])->first();
 
         if (!$scanner) {
@@ -235,11 +241,6 @@ class ScannerController extends Controller
         ]);
     }
 
-    public function listadoIndex()
-    {
-        return view('escaner.lista');
-    }
-
 
     public function FacilityPorPermiso()
     {
@@ -271,7 +272,6 @@ class ScannerController extends Controller
                 $scanner = $scanner->where('facility_id', $request->facility);
             }
         }
-
         $scanner = $scanner->where('type', $request->type);
         $scanner = $scanner->with('ultimoregistro', 'facility')->orderBy('facility_id')->get();
 
