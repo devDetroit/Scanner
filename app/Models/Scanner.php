@@ -17,7 +17,7 @@ class Scanner extends Model
     use HasFactory;
     protected $table = 'scanners';
     protected $primaryKey = 'id';
-    protected $appends = array('Tiempo');
+    protected $appends = array('Tiempo', 'readdescription');
     protected $dates = [
         'deleted_at',
         'updated_at',
@@ -39,7 +39,7 @@ class Scanner extends Model
         'description',
         'status',
         'facility_id',
-        'active', 
+        'active',
         'type'
     ];
 
@@ -58,6 +58,15 @@ class Scanner extends Model
             return number_format($time / 60, 2);
         } else {
             return 0;
+        }
+    }
+
+    public function getReaddescriptionAttribute()
+    {
+        if ($this->type == 2) {
+            return 'Tracker '.substr($this->description, -4);
+        } else {
+            return $this->description;
         }
     }
 

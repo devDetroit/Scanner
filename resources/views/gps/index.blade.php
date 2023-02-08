@@ -37,7 +37,7 @@
                                     <template v-if="scanners">
                                         <tr v-for="scanner in scanners">
                                             <td>@{{ scanner.id }}</td>
-                                            <td>@{{ scanner.description }}</td>
+                                            <td>@{{ scanner.readdescription }}</td>
                                             <td v-if="scanner.status == 1">In Use</td>
                                             <td v-else>Available</td>
                                             <td>@{{ scanner.facility.name }}</td>

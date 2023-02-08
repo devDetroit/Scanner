@@ -37,7 +37,7 @@
                             <tbody>
                                 <tr v-for="registro in log">
                                     <td>@{{ registro.scanner.facility.name }}</td>
-                                    <td>@{{ registro.scanner.description }}</td>
+                                    <td>@{{ registro.scanner.readdescription }}</td>
                                     <td>@{{ registro.start }}</td>
                                     <td>@{{ registro.end }}</td>
                                     <td>@{{ registro.user }}</td>

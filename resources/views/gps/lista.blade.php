@@ -69,7 +69,7 @@
                                     <template v-if="scanners.length > 0">
                                         <tr :class="scanner.Tiempo > 8 ? 'table-warning' : ''" v-for="scanner in scanners">
                                             <td>@{{ scanner.id }}</td>
-                                            <td>@{{ scanner.description  }}</td>
+                                            <td>@{{ scanner.readdescription  }}</td>
                                             <td :class="scanner.active ? 'bg-success fw-bold' : 'bg-danger fw-bold'" v-if="scanner.active == 0">Inactive</td>
                                             <td :class="scanner.active ? 'bg-success fw-bold' : 'bg-danger fw-bold'" v-else>Active</td>
                                             <td>@{{ scanner.facility.name  }}</td>
