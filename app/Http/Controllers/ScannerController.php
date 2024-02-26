@@ -197,30 +197,21 @@ class ScannerController extends Controller
             ]);
         }
 
-        $movimiento = MovementLog::whereHas('scanner', function ($query) use ($scanner) {
-            $query->where('description', $scanner->description);
-        })->where('end', '=', null)->first();
+
+        $movimiento = MovementLog::where('scanners_id', $scanner->id)->where('end', '=', null)->first();
 
         if (!$movimiento) {
-            $movimiento = new MovementLog;
-            $movimiento->scanners_id = $scanner->id;
-            $movimiento->start = Carbon::now();
-            $movimiento->user = $request->empleado;
-            $movimiento->save();
+            $movimiento = MovementLog::create([
+                'scanners_id' => $scanner->id,
+                'start' => Carbon::now(),
+                'user' => $request->empleado
+            ]);
+
             $scanner->status = Scanner::ENUSO;
             $scanner->save();
             $returnMessage = 'Scanner registrado';
             $returnValue = 1;
         } else {
-            $admin = User::where('name', $request->empleado)->first();
-            if (!$admin) {
-                if ($movimiento->user !=  strtoupper($request->empleado)) {
-                    return response()->json([
-                        'returnMessage' => "No existe registro con el usuario y escaner ingresados",
-                        'returnValue' => -2,
-                    ]);
-                }
-            }
             $movimiento->end = Carbon::now();
             $movimiento->save();
             $scanner->status = Scanner::DISPONIBLE;
