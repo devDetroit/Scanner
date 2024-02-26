@@ -101,7 +101,7 @@ class ScannerController extends Controller
         $user = User::where('username', $tmpArr)->first();
         $facilites = FacilityUser::where('users_id', $user->id)->get();
         $scanner = Scanner::whereIn('facility_id', $facilites->pluck('facilities_id'))->get();
-        return MovementLog::whereIn('scanners_id', $scanner->pluck('id'))
+        return MovementLog::select('user', 'start', 'end', 'scanners_id')->whereIn('scanners_id', $scanner->pluck('id'))
             ->orderBy('created_at', 'desc')
             ->with('scanner')
             ->get()
