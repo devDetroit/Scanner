@@ -57,13 +57,13 @@ class ScannerController extends Controller
 
             $start = new Carbon($request->start);
             $log = $log->where('start', '>=', $start->format('Y-m-d 00:00:00'))
-                ->where('end', '<=', $start->format('Y-m-d 23:59:59'));
+                /* ->where('end', '<=', $start->format('Y-m-d 23:59:59')) */;
         }
 
         if ($request->end != '') {
 
             $end = new Carbon($request->end);
-            $log = $log->where('end', '>=', $end->format('Y-m-d 00:00:00'))
+            $log = $log/* ->where('start', '>=', $end->format('Y-m-d 00:00:00')) */
                 ->where('end', '<=', $end->format('Y-m-d 23:59:59'));
         }
 
